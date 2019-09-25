@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显著性目标检测系统</title>
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"> 
+    <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+     <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <table class="table">
+            <tr>
+                <td width="80%"><a href="/" style="font-size: 40px; color: #000000; text-decoration: none">显著性目标检测系统</a></td>
+                <td width="10%" align="right"><a href="/history/" style="font-size: 20px; color: #000000; text-decoration: none">我的</a></td>
+                <td width="10%" align="right"><a href="/logout/" style="font-size: 20px; color: #ff0000; text-decoration: none">注销</a></td>
+            </tr>
+        </table>
+        <h2><a style="font-size: 30px; color: #000000; text-decoration: none">上传图片</a></h2>
+        <form action="/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table style="width: 1160px">
+                <tr>
+                    <td width="85%"><input type="file" name="img" class="form-control" multiple style="height: 40px;"></td>
+                    <td width="15%"><button type="submit" class="btn btn-success">上传</button></td>
+                </tr>
+            </table>
+        </form>
+        <br/>
+        {% if predictions %}
+        <a style="font-size: 16px; color: #000000; text-decoration: none">检测完成！用时{{ spend_time }}</a>
+        <table class="table" height="600px">
+            {% for item in predictions %}
+                <tr>
+                    <td width="50%" align="center" valign="center"><img src="/static/my_predictions/{{ item.image }}" alt="{{ item.name }}" style="height: 200px"></td>
+                    <td width="50%" align="center" valign="center"><img src="/static/my_predictions/{{ item.prediction }}" alt="{{ item.name }}" id="{{ item.id }}" style="height: 200px"></td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
